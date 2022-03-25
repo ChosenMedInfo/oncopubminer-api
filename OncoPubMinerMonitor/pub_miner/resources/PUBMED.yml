@@ -1,0 +1,15 @@
+name: PUBMED
+url:
+#  - ftp://ftp.ncbi.nlm.nih.gov/pubmed/baseline
+  - ftp://ftp.ncbi.nlm.nih.gov/pubmed/updatefiles/
+type: remote
+format: PubMedXml
+zipDir: PUBMED.zip.list
+unzipDir: PUBMED.unzip.list
+unzipNewDir: PUBMED.unzip_new.list
+BioCDir: PUBMED.bioc.list
+NerDir: PUBMED.ner.list
+filter: .xml
+unzip: True
+chunkSize: 5
+generatePubmedHashes: True

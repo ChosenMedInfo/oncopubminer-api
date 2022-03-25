@@ -1,0 +1,13 @@
+# Compiled file
+logs/*
+.idea/*
+__pycache__/*
+
+# Log file
+*.log
+
+# Package Files #
+*.tar.gz
+*.rar
+*.zip
+*.gz

@@ -1,0 +1,8 @@
+storage:
+   resources: /data/OncoPubMinerMonitor/resources
+   workspace: /data/OncoPubMinerMonitor/workspace
+   tools: /data/OncoPubMinerMonitor/tools
+   NERWorking: /data/OncoPubMinerMonitor/ner
+   NERResult: /data/OncoPubMinerMonitor/result
+upload:
+   local-directory: /data/OncoPubMinerMonitor/BioC_Json

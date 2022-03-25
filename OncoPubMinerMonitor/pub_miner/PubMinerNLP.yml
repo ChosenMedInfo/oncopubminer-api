@@ -1,0 +1,20 @@
+name: PubMinerNLP
+version: 0.1
+url:
+mode: complete
+DIR: /data/project/oncopubminer-api/OncoPubMinerMonitor/tools
+resources:
+   PUBMED:
+         format: bioc
+   PMC:
+         format: bioc
+tasks:
+   disease_ner:
+        toolName: DNorm
+   chemical_ner:
+        toolName: tmChem
+   gene_ner:
+        toolName: GNormPlus
+   mutation_ner:
+        toolName: tmVar
+result: /data/project/oncopubminer-api/OncoPubMinerMonitor/result

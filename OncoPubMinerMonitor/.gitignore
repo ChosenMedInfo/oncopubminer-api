@@ -1,0 +1,14 @@
+# Compiled file
+.idea/*
+pub_miner/logs/*
+pub_miner/__pycache__/*
+pub_miner/tmp/*
+
+# Log file
+*.log
+
+# Package Files #
+*.tar.gz
+*.rar
+*.zip
+*.gz
