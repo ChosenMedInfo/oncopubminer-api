@@ -1,30 +1,30 @@
 ## OncoPubMinerAPI
 
-    OncoPubMiner后台检索接口
+    OncoPubMiner background retrieval interface
 
 ###  config
 
-    config.py 后台检索需要配置文件
+    config.py: Background retrieval requires configuration files
 
 ### pub_miner
 
-    - data  数据存放目录
-    - logs 日志目录
+    - data: Data storage directory
+    - logs: Log directory
     - PubMiner
-    aspcheduler_job.py 定时任务脚本文件
-    config.py 配置文件
-    manage.py 后台检索服务启动脚本
-    model.py 数据库模型设计
+    aspcheduler_job.py: Scheduled task script file
+    config.py: Background retrieves configuration files
+    manage.py: Background retrieval service startup script
+    model.py: Database model design script
 
-### manage.py 后台检索服务启动脚本入口
+### manage.py
 
-    manage.py 后台检索服务启动运行入口脚本
+    manage.py: The background retrieval service starts running the entry script
 
-### requirements.txt 依赖包
+### requirements.txt
 
     pip3 install -r requirements.txt
 
-### 建议
+### Advise
 ```bash
 cd oncopubminer-api/OncoPubMinerAPI
 docker pull mysql
