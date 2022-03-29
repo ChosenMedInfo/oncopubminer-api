@@ -1,41 +1,41 @@
 ## OncoPubMinerMonitor
 
-    OncoPubMiner后台监控
+    OncoPubMiner background monitor
 
 ###  config
 
-    config.py 启动监控需要配置文件
+    config.py: background monitoring configuration file
 
 ### pub_miner
 
-    - DownloadShell  下载脚本目录
-       - PMC.sh PMC下载脚本文件
-       - PUBMED.sh PUBMED下载脚本文件
-    - logs 日志目录
-    - resources
-       - PMC.yml    PMC下载更新配置
-       - PUBMED.yml   PubMed下载更新配置
-    config.py 启动监控需要配置文件
-    PubMiner.settings.default.yml 全局配置默认yml文件
-    PubMinerNLP.yml 实体识别工具配置默认uml文件
+    - DownloadShell: Download script directory
+       - PMC.sh: PMC downloads the script file
+       - PUBMED.sh: PUBMED downloads the script file
+    - logs: Log directory
+    - resources: resources directory
+       - PMC.yml: PMC downloads the updated configuration
+       - PUBMED.yml: PUBMED downloads the updated configuration
+    config.py: Configuration files are required to start monitoring
+    PubMiner.settings.default.yml: Configure the default YML file globally
+    PubMinerNLP.yml: The entity recognition tool configures the default UML file
     get_resource.py 下载更新脚本
-    FTPClient.py FTPclient脚本
-    global_settings.py 全局配置脚本
-    PubMinerDatabase.py 操作PubMiner数据库脚本
-    update_database.py 更新数据库脚本
-    NER.py 实体识别及标准化脚本
-    upload.py 上传文件脚本
-    pubrun.py 执行任务入口脚本
+    FTPClient.py: FTPclient script  
+    global_settings.py: Global configuration script
+    PubMinerDatabase.py: Operate the PubMiner database script
+    update_database.py: Updating database scripts
+    NER.py: Entity recognition and standardization scripts
+    upload.py: Script for uploading files
+    pubrun.py: Execute the task entry script
 
-### main 监控脚本入口
+### main
 
-    main.py 总监控运行入口脚本
+    main.py: Program launch entry script
 
-### requirements.txt 依赖包
+### requirements.txt: Depend on the package
 
     pip3 install -r requirements.txt
     
-### Aspera 远程NCBI FTP文件下载
+### Aspera: Remote file download tool
 
     https://www.ibm.com/aspera/connect/
 
@@ -44,10 +44,11 @@
 - DNorm: disease tagger tool(https://www.ncbi.nlm.nih.gov/research/bionlp/Tools/dnorm/)
 - GNormPlus: gene/species tagger tool(https://www.ncbi.nlm.nih.gov/bionlp/Tools/gnormplus)
 - tmVar: mutation tagger tool(https://www.ncbi.nlm.nih.gov/bionlp/Tools/tmvar)
-- 下载以上工具到指定路径下，并确保启动运行成功，配置该路径到PubMiner.settings.default.yml的storage/tools中
+- Remote file download tool Download the preceding tools to the specified path, ensure that the startup is successful, 
+  and configure the path to (PubMiner.settings.default.yml storage/tools)
 
-### 建议
-- 建议使用ananconda3
+### Advice 
+- ananconda3 is recommended
 ```bash
 conda create -n pub_miner python=3.6
 mkdir -p /data/project
@@ -57,3 +58,4 @@ cd oncopubminer-api/OncoPubMinerMonitor
 pip install -r requirements.txt
 python main.py
 ```
+
