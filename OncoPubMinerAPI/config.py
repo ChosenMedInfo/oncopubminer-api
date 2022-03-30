@@ -35,9 +35,12 @@ class Config:
 
     LABEL_DICT = {0: "Gene", 1: "Disease", 2: "Chemical", 3: "Mutation"}
     per_page = 10
-    is_cancer_pub_path = os.path.join(BASE_DIR, "logs", 'is_cancer.txt')
-    with open(is_cancer_pub_path, 'r', encoding='utf-8') as f:
-        cancer_pubmed_ids = {int(pub_id) for pub_id in f.read().strip().split('|') if pub_id}
+    is_cancer_pub_path = os.path.join(BASE_DIR, "data", 'is_cancer.txt')
+    if os.path.isfile(is_cancer_pub_path):
+        with open(is_cancer_pub_path, 'r', encoding='utf-8') as f:
+            cancer_pubmed_ids = {int(pub_id) for pub_id in f.read().strip().split('|') if pub_id}
+    else:
+        cancer_pubmed_ids = set()
     LOG_LEVEL = logging.DEBUG
 
     Entrez_email = "xxx"  # Always tell NCBI who you are
