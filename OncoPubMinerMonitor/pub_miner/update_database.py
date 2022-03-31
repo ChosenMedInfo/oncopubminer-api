@@ -21,7 +21,7 @@ def makeDirs(resource):
     """
     global_setting = pub_miner.get_global_settings(True)
     # 最终NER生成的BioC的存放路径
-    BioCPath = os.path.expanduser(global_setting["storage"]["upload"]["local-directory"])
+    BioCPath = os.path.expanduser(global_setting["upload"]["local-directory"])
     resourceBioCPath = os.path.join(BioCPath, resource)
     if not os.path.isdir(resourceBioCPath):
         os.makedirs(resourceBioCPath)
