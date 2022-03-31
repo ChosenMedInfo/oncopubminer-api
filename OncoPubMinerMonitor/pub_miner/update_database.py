@@ -105,7 +105,10 @@ def update_pub_med_info(PubMedBioCFilePath, resource, deleteBioC=True):
         ref_data = ['|'.join(set(refs)), len(set(refs)), pid]
         # 在数据表中插入或者更新一条数据
         if is_new:
-            BioCDocJsonFilePath = os.path.join(resourceBioCPath, f'PUBMED/{psd[-1]}/{psd}/{pid}.json')
+            dir_path = os.path.join(resourceBioCPath, f'{psd[-1]}/{psd}')
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+            BioCDocJsonFilePath = os.path.join(resourceBioCPath, f'{psd[-1]}/{psd}/{pid}.json')
             pub_miner.save_json_data(BioCDocJsonFilePath, bioc.toJSON(document))
             batch_insert_pubs.append(pub_data)
             batch_insert_new_pubs.append([int(time.time()), '1'] + new_pub_data)
@@ -187,7 +190,10 @@ def update_pmc_info(PMCBioCDirPath, resource, deleteBioC=True):
             # 计算当前PMC数据的存储目录
             psd = str(math.ceil(int(pid[3:]) / 10000))
             # PMC BioC数据的存储路径
-            dest_path = os.path.join(resourceBioCPath, f'{psd[-1]}/{psd}/{pid}.json')
+            dest_dir_path = os.path.join(resourceBioCPath, f'{psd[-1]}/{psd}')
+            if not os.path.isdir(dest_dir_path):
+                os.makedirs(dest_dir_path, exist_ok=True)
+            dest_path = os.path.join(dest_dir_path, f'{pid}.json')
             # 如果当前PMC数据不存在，保存BioC数据到存储路径用于查询并更新new pub数据表信息，否则只更新new pub数据表信息
             if not os.path.exists(dest_path):
                 db.insert_new_pub_info([int(time.time()), '1'] + pub_data)
