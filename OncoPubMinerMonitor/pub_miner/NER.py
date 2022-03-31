@@ -62,6 +62,7 @@ def cleanWorkDir(INPUT, OUTPUT):
 def diseaseNER(toolDir, resource, INPUT, OUTPUT, execute_failure_xml_dir):
     try:
         os.chdir(toolDir)
+        os.makedirs(os.path.join(toolDir, f'{resource}_tmp'), exist_ok=True)
         os.system(f'./PollDNorm.sh config/banner_BC5CDR_UMLS2013AA_SAMPLE.xml data/CTD_diseases-2015-06-04.tsv output/'
                   f'simmatrix_BC5CDR_e4_TRAINDEV.bin AB3P_DIR {resource}_tmp {INPUT} {OUTPUT}')
         execute_result = progressIsSuccessfullyExecuted('DNorm', INPUT, OUTPUT, execute_failure_xml_dir)
@@ -75,6 +76,7 @@ def diseaseNER(toolDir, resource, INPUT, OUTPUT, execute_failure_xml_dir):
 def chemicalNER(toolDir, resource, INPUT, OUTPUT, execute_failure_xml_dir):
     try:
         os.chdir(toolDir)
+        os.makedirs(os.path.join(toolDir, f'{resource}_tmp'), exist_ok=True)
         os.system(f'./Run.sh config/banner_JOINT.xml data/dict.txt AB3P_DIR {resource}_tmp {INPUT} {OUTPUT}')
         execute_result = progressIsSuccessfullyExecuted('tmChem', INPUT, OUTPUT, execute_failure_xml_dir)
         if not execute_result and len(os.listdir(INPUT)):
@@ -97,7 +99,7 @@ def mutationNER(toolDir, resource, INPUT, OUTPUT, execute_failure_xml_dir):
 def geneNER(toolDir, resource, INPUT, OUTPUT, execute_failure_xml_dir):
     try:
         os.chdir(toolDir)
-        os.system(f'./GNormPlus.sh {INPUT} {OUTPUT}')
+        os.system(f'java -Xmx50G -Xms50G -jar GNormPlus.jar {INPUT} {OUTPUT}')
         try_num = 1
         while len(set(os.listdir(INPUT)) - set(os.listdir(OUTPUT))) > 0 and try_num <= 5:
             os.system(f'./GNormPlus.sh {INPUT} {OUTPUT}')
