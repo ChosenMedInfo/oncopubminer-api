@@ -221,8 +221,9 @@ def getResource(resource):
     resourceDir = os.path.expanduser(globalSettings["storage"]["resources"])
     resourceInfo = getResourceInfo(resource)
     thisResourceDir = os.path.join(resourceDir, resource, resourceInfo['zipDir'])
-    unzipDir = os.path.join(resourceDir, resource, resourceInfo['unzipDir'])
+    os.makedirs(thisResourceDir, exist_ok=True)
     unzipNewDir = os.path.join(resourceDir, resource, resourceInfo['unzipNewDir'])
+    os.makedirs(unzipNewDir, exist_ok=True)
 
     if resourceInfo['type'] == 'remote':
         # 下载地址列表
@@ -254,15 +255,11 @@ def getResource(resource):
                     pub_miner.Config.Logger.info(f'skipping {filename} ...')
                 pub_miner.Config.Logger.info(f'Unzipping {filename} ...')
                 if filename.endswith('.tar.gz') or filename.endswith('.tgz'):
-                    tar = tarfile.open(os.path.join(thisResourceDir, filename), "r:gz")
-                    tar.extractall(unzipDir)
-                    tar.close()
                     NewTar = tarfile.open(os.path.join(thisResourceDir, filename), "r:gz")
                     NewTar.extractall(unzipNewDir)
                     NewTar.close()
                 elif filename.endswith('.gz'):
                     unzippedName = os.path.basename(filename)[:-3]
-                    gunzip(os.path.join(thisResourceDir, filename), os.path.join(unzipDir, unzippedName))
                     gunzip(os.path.join(thisResourceDir, filename), os.path.join(unzipNewDir, unzippedName))
             # 根据文件后缀过滤文件
             if fileSuffixFilter is not None:
