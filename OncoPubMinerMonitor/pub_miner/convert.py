@@ -621,6 +621,9 @@ def PubMedXml2BioC(PubMedXmlPath, PubMedBioCXMLPaths, deleteSource):
     :return:
     """
     basename = os.path.basename(PubMedXmlPath)
+    global_setting = get_global_settings(True)
+    BioCPath = os.path.expanduser(global_setting["upload"]["local-directory"])
+    resourceBioCPath = os.path.join(BioCPath, 'PUBMED')
     Config.Logger.info(f'starting convert PubMedXml to BioC: {basename}')
     try:
         PubMedBioCXMLPaths = [PubMedBioCXMLPaths] if isinstance(PubMedBioCXMLPaths, six.string_types) else \
@@ -635,8 +638,7 @@ def PubMedXml2BioC(PubMedXmlPath, PubMedBioCXMLPaths, deleteSource):
                     if pid not in BioCXml_dict or (pid in BioCXml_dict and version > BioCXml_dict[pid][1]):
                         # 计算当前PubMed数据的二级存储路径
                         psd = str(math.ceil(int(pid) / 10000))
-                        BioCDocJsonFilePath = os.path.join(Config.BioCPath, Config.PubMedBioCJsonDir,
-                                                           f'{psd[-1]}/{psd}/{pid}.json')
+                        BioCDocJsonFilePath = os.path.join(resourceBioCPath, f'{psd[-1]}/{psd}/{pid}.json')
 
                         is_new = 0 if os.path.exists(BioCDocJsonFilePath) else 1
 
@@ -917,6 +919,12 @@ def convertFiles2BioC(inFiles, inFormat, outDirs, deleteSource=True):
     """
     if isinstance(inFiles, str):
         inFiles = [inFiles]
+    if isinstance(outDirs, str):
+        outDirs = [outDirs]
+
+    for outDir in outDirs:
+        if not os.path.isdir(outDir):
+            os.makedirs(outDir)
     Config.Logger.info(f"Converting {len(inFiles)} files")
     if inFormat == 'PubMedXml':
         for inFile in inFiles:
