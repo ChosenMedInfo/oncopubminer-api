@@ -34,9 +34,9 @@ def makeDirs(resource):
     return resourceBioCPath, resourceBioCInfoPath
 
 
-def update_pub_med_info(PubMedBioCFilePath, resource, deleteBioC=True):
+def update_pub_med_info(PubMedBioCFilePath, deleteBioC=True):
     """PubMed基本信息上传Mysql数据库"""
-    resourceBioCPath, resourceBioCInfoPath = makeDirs(resource)
+    resourceBioCPath, resourceBioCInfoPath = makeDirs('PUBMED')
     # 获取数据库中所有杂志名和杂志id
     db = pub_miner.PubMinerDB()
     journals = {journal[1].lower(): journal[0] for journal in
@@ -160,9 +160,9 @@ def update_pub_med_info(PubMedBioCFilePath, resource, deleteBioC=True):
         os.remove(PubMedBioCFilePath)
 
 
-def update_pmc_info(PMCBioCDirPath, resource, deleteBioC=True):
+def update_pmc_info(PMCBioCDirPath, deleteBioC=True):
     """PMC基本信息上传Mysql数据库"""
-    resourceBioCPath, _ = makeDirs(resource)
+    resourceBioCPath, _ = makeDirs('PMC')
     db = pub_miner.PubMinerDB()
     new_pmc = 0
     for BioCXmlFile in os.listdir(PMCBioCDirPath):
@@ -209,7 +209,6 @@ def update_pmc_info(PMCBioCDirPath, resource, deleteBioC=True):
     # 更新数据表stat中的fullText字段信息
     db.update_stat_abstract_fullText_fields(new_pmc=new_pmc)
     db.close()
-    pub_miner.Config.Logger.info(f"update resource: {resource} baseInfo finished")
 
 
 def update_pub_base_info(resource, deleteBioC=True):
