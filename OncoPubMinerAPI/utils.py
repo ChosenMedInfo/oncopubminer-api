@@ -237,16 +237,12 @@ def get_document_by_query_field(pub_ids, page, per_page, is_cancer):
         }
         return data
     if is_cancer == 'cancer':
-        all_pub_ids = pub_ids & Config.cancer_pubmed_ids
-        pub_ids = sorted(all_pub_ids, reverse=True)[(page - 1) * per_page:page * per_page]
-        pub_med_list = PubMed.query.filter(PubMed.id.in_(pub_ids)) \
+        pub_med_list = PubMed.query.filter(and_(PubMed.id.in_(pub_ids), PubMed.is_cancer == 1)) \
             .order_by(desc(PubMed.id)).paginate(1, per_page=per_page, error_out=False)
     else:
-        all_pub_ids = sorted(pub_ids, reverse=True)
-        pub_ids = all_pub_ids[(page - 1) * per_page:page * per_page]
         pub_med_list = PubMed.query.filter(PubMed.id.in_(pub_ids)) \
             .order_by(desc(PubMed.id)).paginate(1, per_page=per_page, error_out=False)
-    count = len(all_pub_ids)
+    count = pub_med_list.total
     document_list = []
     for pub_med in pub_med_list.items:
         document = get_document(pub_med)
